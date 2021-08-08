@@ -2,6 +2,7 @@ package userrepository
 
 import (
 	"context"
+	"errors"
 
 	mongoDb "github.com/axel526/jikkosoft/src/data/databases/mongo"
 	e "github.com/axel526/jikkosoft/src/entity"
@@ -59,13 +60,10 @@ func GetByUserId(userId string) (e.User, error) {
 		return user, err
 	}
 
-	for cur.Next(ctx) {
+	if cur.Next(ctx) {
 		err = cur.Decode(&user)
-
-		if err != nil {
-			return user, err
-		}
+		return user, err
 	}
 
-	return user, nil
+	return user, errors.New("el usuario no existe")
 }

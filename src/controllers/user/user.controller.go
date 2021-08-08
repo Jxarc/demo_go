@@ -60,7 +60,7 @@ func getUserDetails(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(
-			config.NewHTTPError(err, http.StatusInternalServerError, "Ocurrío un problema al otener la data"+err.Error()))
+			config.NewHTTPError(err, http.StatusInternalServerError, "Ocurrío un problema al otener la data: "+err.Error()))
 		return
 	}
 
