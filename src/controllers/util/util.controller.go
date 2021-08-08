@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	config "github.com/axel526/jikkosoft/src/controllers/config"
-	utilrepository "github.com/axel526/jikkosoft/src/data/repositories/util.repository"
 	e "github.com/axel526/jikkosoft/src/entity"
+	utilService "github.com/axel526/jikkosoft/src/services/util.service"
 	"github.com/gorilla/mux"
 )
 
@@ -36,12 +36,7 @@ func sortedArray(w http.ResponseWriter, r *http.Request) {
 			config.NewHTTPError(err, http.StatusBadRequest, "Error al procesar input"))
 
 	} else {
-
-		onlyNumbers, repeatNumbers := utilrepository.SeparateRepeatedNumbers(sorted.Unsorted)
-		onlyNumbers = utilrepository.OrderNumbers(onlyNumbers)
-		sorted.Sorted = append(onlyNumbers, repeatNumbers...)
-
-		json.NewEncoder(w).Encode(sorted)
+		json.NewEncoder(w).Encode(utilService.Sorted(sorted.Unsorted))
 	}
 
 }
