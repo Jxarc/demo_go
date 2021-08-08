@@ -5,8 +5,8 @@ import (
 	e "github.com/axel526/jikkosoft/src/entity"
 )
 
-func Create() {
-
+func Create(user e.User) error {
+	return userRepository.Create(user)
 }
 
 func GetAll() (e.Users, error) {

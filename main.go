@@ -4,4 +4,6 @@ import (
 	api "github.com/axel526/jikkosoft/src/controllers"
 )
 
-func main() { api.InitAPI("8090") }
+const APIPort = "8090"
+
+func main() { api.InitAPI(APIPort) }
