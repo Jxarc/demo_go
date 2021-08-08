@@ -14,13 +14,12 @@ import (
 //InitController inicializa todos los endpoint para este controller
 func InitController(controllerName string, r *mux.Router) {
 	r.HandleFunc(controllerName, getAll).Methods("GET")
-	r.HandleFunc(controllerName, create).Methods("DELETE")
+	r.HandleFunc(controllerName, delete).Methods("DELETE")
 	r.HandleFunc(controllerName, update).Methods("PUT")
 	r.HandleFunc(controllerName, create).Methods("POST")
 }
 
 func create(w http.ResponseWriter, r *http.Request) {
-
 	fmt.Fprintf(w, "create")
 }
 
@@ -33,14 +32,14 @@ func update(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAll(w http.ResponseWriter, r *http.Request) {
-	users, err := userService.GetAll()
-
 	w.Header().Set("Content-Type", "application/json")
+
+	users, err := userService.GetAll()
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(
-			config.NewHTTPError(err, http.StatusInternalServerError, "Error al cargar los clientes"))
+			config.NewHTTPError(err, http.StatusInternalServerError, "Error al cargar usuarios"))
 
 		return
 	}
