@@ -11,7 +11,7 @@ import (
 
 func GetCollection(collection string) *mongo.Collection {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d", DBUser, DBPass, DBHost, DBPort)
-	fmt.Printf("Connection: %s", uri)
+	fmt.Printf("Connecting: %s  \n", uri)
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 
@@ -26,5 +26,6 @@ func GetCollection(collection string) *mongo.Collection {
 		panic(err.Error())
 	}
 
+	fmt.Printf("Connected: %s  \n", uri)
 	return client.Database(DBName).Collection(collection)
 }

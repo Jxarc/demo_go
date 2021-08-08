@@ -4,6 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"strconv"
+
 	e "github.com/axel526/jikkosoft/src/entity"
 	userService "github.com/axel526/jikkosoft/src/services/user.service"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -39,4 +41,19 @@ func TestCreate(t *testing.T) {
 		}
 	}
 
+}
+
+func TestGetAll(t *testing.T) {
+	users, err := userService.GetAll()
+
+	if err != nil {
+		t.Error("Ocurrio un error al obtener la información: " + err.Error())
+		t.Fail()
+		return
+	}
+
+	for i, user := range users {
+		t.Log(strconv.Itoa(i) + ": Nombre ->" + user.Name)
+		t.Log(strconv.Itoa(i) + ": ID ->" + user.ID.Hex())
+	}
 }
